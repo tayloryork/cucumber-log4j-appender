@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+group 'tayloryork.cucumber-log4j2-appender'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+ext {
+    cucumberVersion = '2.3.1'
+    jacksonVersion = '2.9.5'
+    log4jVersion = '2.11.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // needed for log4j abstractappender
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4jVersion}"
+    compile group: 'io.cucumber', name: 'cucumber-core', version: "${cucumberVersion}"
+    // needed for @Before annoation in CucumberScenarioAppenderHooks
+    compile group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}"
+
+    testCompile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4jVersion}"
+    testCompile group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
+    // to use log4j yaml, you need both jackson-databind & jackson-databind-yaml
+    testCompile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: "${jacksonVersion}"
+    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVersion}"
+}
